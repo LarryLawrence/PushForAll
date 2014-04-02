@@ -9,6 +9,9 @@ package com.daenerys.pushforall;
 
 public final class Manifest {
     public static final class permission {
+        /**  个推自定义权限 
+         */
+        public static final String GetuiService="getui.permission.GetuiService";
         /**  Required 自定义用来收发消息的相关权限 
          */
         public static final String JPUSH_MESSAGE="com.daenerys.pushforall.permission.JPUSH_MESSAGE";
