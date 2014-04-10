@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.daenerys.pushforall"
+    package="com.shiwen.multipush"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
+    
+    <!-- AirBop shiwen has declare the MESSAGE permission -->
+    <!-- App receives GCM messages. -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	
+	<!-- GCM connects to Google Services. -->
+	<uses-permission android:name="android.permission.INTERNET" /> 
+	
+	<!-- GCM requires a Google account. -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	
+	<!-- Keeps the processor from sleeping when a message is received. -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    
     <!-- Required 自定义用来收发消息的相关权限 -->
     <permission
-        android:name="com.daenerys.pushforall.permission.JPUSH_MESSAGE"
+        android:name="com.shiwen.multipush.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     <!-- Required  一些系统要求的权限，如访问网络等 -->
-    <uses-permission android:name="com.daenerys.pushforall.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="com.shiwen.multipush.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -56,15 +72,24 @@
         android:name="getui.permission.GetuiService"
         android:protectionLevel="normal" >
     </permission>
+    <!-- gcm permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    
+    <permission android:name="com.shiwen.multipush.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.shiwen.multipush.gcm.permission.C2D_MESSAGE" />
 
     <application
-        android:name="com.daenerys.pushforall.ExampleApplication"
+        android:name="com.shiwen.multipush.ExampleApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.daenerys.pushforall.MainActivity"
+            android:name="com.shiwen.multipush.MainActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo" >
             <intent-filter>
@@ -84,7 +109,7 @@
             <intent-filter>
 
                 <!-- com.igexin.action.popupact.第三方的包名 -->
-                <action android:name="com.igexin.action.popupact.com.daenerys.pushforall" />
+                <action android:name="com.igexin.action.popupact.com.shiwen.multipush" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -126,7 +151,7 @@
 
         <provider
             android:name="sdk.download.DownloadProvider"
-            android:authorities="sdk.download.com.daenerys.pushforall"
+            android:authorities="sdk.download.com.shiwen.multipush"
             android:process=":pushservice" />
         <!-- android:authorities="sdk.download.第三方包名" -->
 
@@ -145,7 +170,7 @@
                 <!-- 这个com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4固定，不能修改 -->
                 <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
                 <!-- android:name="com.igexin.sdk.action.第三方的appId" -->
-                <action android:name="com.igexin.sdk.action.fWsh9gSZf0AVUchHKHCnz6" />
+                <action android:name="com.igexin.sdk.action.WqDlN9Lk4693E3N3oPRAX4" />
             </intent-filter>
         </receiver>
 
@@ -157,7 +182,7 @@
 
         <provider
             android:name="com.igexin.download.DownloadProvider"
-            android:authorities="increment.download.com.daenerys.pushforall"
+            android:authorities="increment.download.com.shiwen.multipush"
             android:exported="false"
             android:process=":pushservice" />
    
@@ -193,7 +218,7 @@
                 <action android:name="cn.jpush.android.ui.PushActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.daenerys.pushforall" />
+                <category android:name="com.shiwen.multipush" />
             </intent-filter>
         </activity>
         <!-- Required  SDK核心功能 -->
@@ -226,7 +251,7 @@
             android:enabled="true" >
             <intent-filter android:priority="1000" >
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
-                <category android:name="com.daenerys.pushforall" />
+                <category android:name="com.shiwen.multipush" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -252,7 +277,29 @@
                 <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
             </intent-filter>
         </receiver>
-
+        
+		<!-- 个推透传  -->
+        <receiver
+            android:name="com.shiwen.multipush.GexinReceiver">
+            <!-- 如下配置用于透传 -->
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.WqDlN9Lk4693E3N3oPRAX4" />
+            </intent-filter>
+　　　		</receiver>
+            
+        <!-- gcm -->
+        <receiver
+            android:name="com.shiwen.multipush.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.shiwen.multipush" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GCMIntentService" />
+        <!-- end of gcm -->
+        
         <!-- Required SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
         <!-- Required  . Enable it you can get statistics data with channel -->
@@ -261,25 +308,25 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="03468cb2f7727ae5fb702d22" /> <!-- </>值来自开发者平台取得的AppKey -->
+            android:value="231ec0a8b72981869247f26f" /> <!-- </>值来自开发者平台取得的AppKey -->
         <!-- 信鸽：请修改为APP的AccessId -->
         <meta-data
             android:name="XG_V2_ACCESS_ID"
-            android:value="2100013860" />
+            android:value="2100013887" />
         <!-- 信鸽：请修改为APP的AccessKey -->
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
-            android:value="AB6HP55Y1Z5J" />
+            android:value="A9YN1V2Q6Y2S" />
         <!-- (个推)配置的第三方参数属性 -->
         <meta-data
             android:name="appid"
-            android:value="fWsh9gSZf0AVUchHKHCnz6" />
+            android:value="WqDlN9Lk4693E3N3oPRAX4" />
         <meta-data
             android:name="appsecret"
-            android:value="F2n7rW0OOz9qiMDWDHIxP8" />
+            android:value="WOfCPSCiYt7yUwOnEpmc4" />
         <meta-data
             android:name="appkey"
-            android:value="oPd8Bp0WFc7huQtvAGqExA" />
+            android:value="0HoXzMpmVIAlbKTyjfjT15" />
         <meta-data
             android:name="groupid"
             android:value="" />

@@ -5,15 +5,16 @@
  * should not be modified by hand.
  */
 
-package com.daenerys.pushforall;
+package com.shiwen.multipush;
 
 public final class Manifest {
     public static final class permission {
+        public static final String C2D_MESSAGE="com.shiwen.multipush.permission.C2D_MESSAGE";
         /**  个推自定义权限 
          */
         public static final String GetuiService="getui.permission.GetuiService";
         /**  Required 自定义用来收发消息的相关权限 
          */
-        public static final String JPUSH_MESSAGE="com.daenerys.pushforall.permission.JPUSH_MESSAGE";
+        public static final String JPUSH_MESSAGE="com.shiwen.multipush.permission.JPUSH_MESSAGE";
     }
 }

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.daenerys.pushforall;
+package com.shiwen.multipush;
 
 public final class R {
     public static final class attr {
@@ -120,8 +120,40 @@ public final class R {
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
+        public static final int airbop_message=0x7f050007;
+        public static final int airbop_server_reg_failed=0x7f050018;
+        public static final int airbop_server_reg_failed_401=0x7f050019;
+        public static final int airbop_server_reg_failed_timeout=0x7f05001a;
+        public static final int airbop_service_registration_complete=0x7f05001e;
+        public static final int airbop_service_unregistration_complete=0x7f05001f;
+        public static final int already_registered=0x7f05001b;
         public static final int app_name=0x7f050000;
+        public static final int error_config=0x7f050003;
+        public static final int gcm_deleted=0x7f05000b;
+        public static final int gcm_error=0x7f050008;
+        public static final int gcm_recoverable_error=0x7f05000a;
+        public static final int gcm_register_attempt=0x7f050009;
+        public static final int gcm_registered=0x7f050005;
+        public static final int gcm_unregistered=0x7f050006;
+        public static final int getting_location=0x7f050020;
+        public static final int got_current_location=0x7f050022;
+        public static final int got_last_location=0x7f050021;
         public static final int hello_world=0x7f050002;
+        public static final int options_clear=0x7f050013;
+        public static final int options_exit=0x7f050014;
+        public static final int options_register=0x7f050011;
+        public static final int options_unregister=0x7f050012;
+        public static final int options_unregister_airbop=0x7f05001d;
+        public static final int options_unregister_gcm=0x7f05001c;
+        public static final int reg_thread_running=0x7f050015;
+        public static final int request_error=0x7f050004;
+        public static final int server_register_error=0x7f05000f;
+        public static final int server_registered=0x7f05000d;
+        public static final int server_registering=0x7f05000c;
+        public static final int server_unregister_error=0x7f050010;
+        public static final int server_unregistered=0x7f05000e;
+        public static final int unreg_thread_running=0x7f050016;
+        public static final int unregister_device=0x7f050017;
     }
     public static final class style {
         /** 
