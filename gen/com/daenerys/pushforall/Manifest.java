@@ -9,7 +9,6 @@ package com.daenerys.pushforall;
 
 public final class Manifest {
     public static final class permission {
-        public static final String C2D_MESSAGE="com.daenerys.pushforall.permission.C2D_MESSAGE";
         /**  个推自定义权限 
          */
         public static final String GetuiService="getui.permission.GetuiService";
