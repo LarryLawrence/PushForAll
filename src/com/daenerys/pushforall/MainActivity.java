@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
-
+	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 		//(¸öÍÆ)
 		MessageManager.getInstance().initialize(this.getApplicationContext());
 		
+		//Google Play 
 		
 		
 		

@@ -7,6 +7,16 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
+    <!-- Google GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <permission
+        android:name="com.daenerys.pushforall.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.daenerys.pushforall.permission.C2D_MESSAGE" />
+
     <!-- Required 自定义用来收发消息的相关权限 -->
     <permission
         android:name="com.daenerys.pushforall.permission.JPUSH_MESSAGE"
@@ -63,6 +73,22 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- Google Play Service -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.daenerys.pushforall" />
+            </intent-filter>
+        </receiver>
+		<service android:name=".GcmIntentService" />
         <activity
             android:name="com.daenerys.pushforall.MainActivity"
             android:label="@string/app_name"
@@ -149,7 +175,9 @@
             </intent-filter>
         </receiver>
 
+
         　　
+        
         <service
             android:name="com.igexin.download.DownloadService"
             android:exported="false"
@@ -160,8 +188,10 @@
             android:authorities="increment.download.com.daenerys.pushforall"
             android:exported="false"
             android:process=":pushservice" />
+
    
 	　　
+        
         <receiver
             android:name="com.igexin.download.DownloadReceiver"
             android:exported="false" >
@@ -170,7 +200,9 @@
             </intent-filter>
         </receiver>
 
+
 	　　
+        
         <receiver android:name="com.igexin.sdk.SdkReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
