@@ -298,6 +298,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".GCMIntentService" />
+		<service android:name=".AirBopIntentService"></service>
         <!-- end of gcm -->
         
         <!-- Required SDK核心功能 -->
